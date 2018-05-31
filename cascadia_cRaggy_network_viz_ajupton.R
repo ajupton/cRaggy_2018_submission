@@ -18,7 +18,6 @@ public_trip_data <- list.files(
   #map_df(~ read_csv(., col_types = cols(.default = "c")))
   map_df(~ read_csv(., col_types = "iccddDTcddDTcicdTcl"))
 
-str(public_trip_data)
 glimpse(public_trip_data)
 
 # How many missing values?
