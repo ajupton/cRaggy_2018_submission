@@ -69,7 +69,7 @@ edge_list_weight <- full_join(as.data.frame(edge_list), el_hubs) # join numeric 
 # Create igraph object and set graphical parameters
 g <- graph_from_data_frame(vertices = node_list, d = edge_list, directed = TRUE)
 V(g)$label <- NA # drop node labels - too messy otherwise
-V(g)$size <- log(strength(g, mode = "in"))*.01 # size the nodes based on weighted in-degree, but small
+V(g)$size <- log(strength(g, mode = "all"))*.01 # size the nodes based on weighted degree, but small
 V(g)$frame.color <- NA # drop the node border 
 V(g)$color <- "orangered" # color nodes the closest color to Nike orange
 E(g)$arrow.mode <- 0 # drop arrows from directed edges
@@ -83,8 +83,8 @@ min(hub_positions$y)
 max(hub_positions$y)
 
 # Color function to highlight edge strength
-colfunc <- colorRampPalette(c("white", "light blue", "blue", "dark blue"), alpha = TRUE)
-#table(colfunc(length(E(a)$weight))) # check out color assignments
+colfunc <- colorRampPalette(c("white", "lightcyan", "skyblue1", "lightblue1", "lightskyblue", "blue", "blue3", "dark blue"), alpha = TRUE)
+#table(colfunc(length(E(g)$weight))) # check out color assignments
 
 # Set plotting parameters: background color to a dark gray and set font to a sans-serif family
 par(bg = "grey25", family = "Franklin Gothic Medium") 
@@ -98,9 +98,9 @@ plot.igraph(g,
               xlim = c(-122.705, -122.62), #xlims based on max/min above
               edge.color = colfunc(length(E(g)$weight))) # applying color function here
 title(main = "BIKETOWN Network", col.main = "ghostwhite",
-      sub = "By: Andy Upton \n andyupton.net", col.sub = "ghostwhite", 
-      cex.sub = 1.5, cex.main = 2)
+      sub = "code @ https://bit.ly/2sqwmZT", col.sub = "ghostwhite", 
+      cex.sub = 1, cex.main = 2)
 
 # Export plot using R graphics editor as an SVG 1500 x 1125 pixels
-
+# dev.off()
 
