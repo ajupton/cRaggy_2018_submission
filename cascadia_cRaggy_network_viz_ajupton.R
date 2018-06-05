@@ -39,8 +39,8 @@ el_hubs <- hub_data %>%
   select(StartHub, EndHub) %>%
   filter(StartHub != EndHub) %>% # get rid of recursive edges
   group_by(StartHub, EndHub) %>%
-  summarise(weight = n()) 
-  # %>% arrange(desc(weight)) # strongest edge is 695 trips
+  summarise(weight = n()) %>% 
+  # arrange(desc(weight)) # strongest edge is 695 trips
 
 # Convert nodes to factor and weight to numeric for igraph
 el_hubs$StartHub <- as.factor(el_hubs$StartHub)
@@ -83,8 +83,8 @@ min(hub_positions$y)
 max(hub_positions$y)
 
 # Color function to highlight edge strength
-colfunc <- colorRampPalette(c("white", "lightcyan", "skyblue1", "lightblue1", "lightskyblue", "blue", "blue3", "dark blue"), alpha = TRUE)
-#table(colfunc(length(E(g)$weight))) # check out color assignments
+colfunc <- colorRampPalette(c("white", "lightcyan", "lightblue1", "lightskyblue", "deepskyblue3", "blue", "blue3", "dark blue"), alpha = TRUE)
+# table(colfunc(length(E(g)$weight))) # check out color assignments
 
 # Set plotting parameters: background color to a dark gray and set font to a sans-serif family
 par(bg = "grey25", family = "Franklin Gothic Medium") 
@@ -97,10 +97,32 @@ plot.igraph(g,
               ylim = c(45.49, 45.57), # ylims based on max/min above
               xlim = c(-122.705, -122.62), #xlims based on max/min above
               edge.color = colfunc(length(E(g)$weight))) # applying color function here
+
+# Title
 title(main = "BIKETOWN Network", col.main = "ghostwhite",
-      sub = "code @ https://bit.ly/2sqwmZT", col.sub = "ghostwhite", 
-      cex.sub = 1, cex.main = 2)
+      sub = "Edge weights (colors) model the number of bikes sent from one hub to another \n in a weighted, directed network graph \n code @ https://bit.ly/2sqwmZT", col.sub = "ghostwhite", cex.sub = 1.5, cex.main = 2.5)
+
+# Legend Colors
+leg_colors <- c("white", "lightcyan", "lightblue1",  "lightskyblue", "deepskyblue3", "blue", "blue3", "dark blue")
+
+# Check weights (number of bikes moved from one hub to another) in the edgelist at each position where the color
+# function will provide a new folor - there are 8 colors, so each color represents about 13780/8 ~ 1734 edges
+# el_hubs_leg <- hub_data %>%
+#  select(StartHub, EndHub) %>%
+#  filter(StartHub != EndHub) %>% # get rid of recursive edges
+#  group_by(StartHub, EndHub) %>%
+#  summarise(weight = n()) %>% 
+#  arrange(desc(weight)) 
+# el_hubs_leg[12046], el_hubs_leg[10312], el_hubs_leg[8578], etc. to access number of biks @ approx. color assigments
+
+# Legend
+legend("bottomleft", c("1 - 2 Bikes", "2 - 3 Bikes", "3 - 5 Bikes", "5 - 9 Bikes", "9 - 14 Bikes", 
+                       "14 - 25 Bikes", "25 - 50 Bikes", "50 - 695 Bikes"), pch = 21, col = leg_colors, pt.cex = 2.25, 
+       pt.bg = leg_colors, cex = 1.5, 
+       bty = "n", # drop legend border
+       ncol=1, text.col = "ghostwhite", 
+       y.intersp = .3) # set vertical distances between lines in legend
 
 # Export plot using R graphics editor as an SVG 1500 x 1125 pixels
-# dev.off()
-
+ dev.off()
+ 
