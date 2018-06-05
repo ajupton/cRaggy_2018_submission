@@ -101,7 +101,7 @@ plot.igraph(g,
 
 # Title
 title(main = "BIKETOWN Network", col.main = "ghostwhite",
-      sub = "Edge weights (colors) model the number of bikes sent from one hub to another \n in a weighted, directed network graph \n code @ https://bit.ly/2sqwmZT", 
+      sub = "Edge weights (colors) model the number of bikes sent from one hub to another \n in a weighted, directed network graph \n code @ bit.ly/BIKETOWN_net", 
       col.sub = "ghostwhite", cex.sub = 1.5, cex.main = 2.5)
 
 # Legend work - 
