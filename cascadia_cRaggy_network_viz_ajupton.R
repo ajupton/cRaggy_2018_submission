@@ -1,6 +1,5 @@
 library(tidyverse)
 library(igraph)
-library(ggraph)
 library(colorRamps)
 library(extrafont)
 
@@ -25,6 +24,7 @@ glimpse(public_trip_data)
 
 # Begin constructing a Biketown Network to explore network topology
 # What is the overall "flow" of Biketown bikes in the Portland bike hub network?
+# I'm concerned with the movement of bikes from one hub to another. How many (or how few) move from hub to hub?
 
 # Filter to only start/end hub and geo coords to extract node info - 367,024 bike trips
 hub_data <- public_trip_data %>%
@@ -83,7 +83,8 @@ min(hub_positions$y)
 max(hub_positions$y)
 
 # Color function to highlight edge strength
-colfunc <- colorRampPalette(c("white", "lightcyan", "lightblue1", "lightskyblue", "deepskyblue3", "blue", "blue3", "dark blue"), alpha = TRUE)
+colfunc <- colorRampPalette(c("white", "lightcyan", "lightblue1", "lightskyblue", "deepskyblue3", "blue", "blue3", "dark blue"), 
+                            alpha = TRUE)
 # table(colfunc(length(E(g)$weight))) # check out color assignments
 
 # Set plotting parameters: background color to a dark gray and set font to a sans-serif family
@@ -100,11 +101,10 @@ plot.igraph(g,
 
 # Title
 title(main = "BIKETOWN Network", col.main = "ghostwhite",
-      sub = "Edge weights (colors) model the number of bikes sent from one hub to another \n in a weighted, directed network graph \n code @ https://bit.ly/2sqwmZT", col.sub = "ghostwhite", cex.sub = 1.5, cex.main = 2.5)
+      sub = "Edge weights (colors) model the number of bikes sent from one hub to another \n in a weighted, directed network graph \n code @ https://bit.ly/2sqwmZT", 
+      col.sub = "ghostwhite", cex.sub = 1.5, cex.main = 2.5)
 
-# Legend Colors
-leg_colors <- c("white", "lightcyan", "lightblue1",  "lightskyblue", "deepskyblue3", "blue", "blue3", "dark blue")
-
+# Legend work - 
 # Check weights (number of bikes moved from one hub to another) in the edgelist at each position where the color
 # function will provide a new folor - there are 8 colors, so each color represents about 13780/8 ~ 1734 edges
 # el_hubs_leg <- hub_data %>%
@@ -115,6 +115,9 @@ leg_colors <- c("white", "lightcyan", "lightblue1",  "lightskyblue", "deepskyblu
 #  arrange(desc(weight)) 
 # el_hubs_leg[12046], el_hubs_leg[10312], el_hubs_leg[8578], etc. to access number of biks @ approx. color assigments
 
+# Legend Colors
+leg_colors <- c("white", "lightcyan", "lightblue1",  "lightskyblue", "deepskyblue3", "blue", "blue3", "dark blue")
+
 # Legend
 legend("bottomleft", c("1 - 2 Bikes", "2 - 3 Bikes", "3 - 5 Bikes", "5 - 9 Bikes", "9 - 14 Bikes", 
                        "14 - 25 Bikes", "25 - 50 Bikes", "50 - 695 Bikes"), pch = 21, col = leg_colors, pt.cex = 2.25, 
@@ -124,5 +127,6 @@ legend("bottomleft", c("1 - 2 Bikes", "2 - 3 Bikes", "3 - 5 Bikes", "5 - 9 Bikes
        y.intersp = .3) # set vertical distances between lines in legend
 
 # Export plot using R graphics editor as an SVG 1500 x 1125 pixels
- dev.off()
+ 
+dev.off()
  
