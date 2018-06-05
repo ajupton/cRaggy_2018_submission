@@ -131,5 +131,5 @@ legend("bottomleft", c("1 - 2 Bikes", "2 - 3 Bikes", "3 - 5 Bikes", "5 - 9 Bikes
 
 # Export plot using R graphics editor as an SVG 1500 x 1125 pixels
  
-dev.off()
+# dev.off()
  
