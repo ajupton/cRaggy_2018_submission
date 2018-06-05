@@ -120,7 +120,10 @@ leg_colors <- c("white", "lightcyan", "lightblue1",  "lightskyblue", "deepskyblu
 
 # Legend
 legend("bottomleft", c("1 - 2 Bikes", "2 - 3 Bikes", "3 - 5 Bikes", "5 - 9 Bikes", "9 - 14 Bikes", 
-                       "14 - 25 Bikes", "25 - 50 Bikes", "50 - 695 Bikes"), pch = 21, col = leg_colors, pt.cex = 2.25, 
+                       "14 - 25 Bikes", "25 - 50 Bikes", "50 - 695 Bikes"), 
+       pch = 21, 
+       col = leg_colors, 
+       pt.cex = 2.25, 
        pt.bg = leg_colors, cex = 1.5, 
        bty = "n", # drop legend border
        ncol=1, text.col = "ghostwhite", 
