@@ -106,7 +106,7 @@ title(main = "BIKETOWN Network", col.main = "ghostwhite",
 
 # Legend work - 
 # Check weights (number of bikes moved from one hub to another) in the edgelist at each position where the color
-# function will provide a new folor - there are 8 colors, so each color represents about 13780/8 ~ 1734 edges
+# function will provide a new color - there are 8 colors, so each color represents about 13780/8 ~ 1734 edges
 # el_hubs_leg <- hub_data %>%
 #  select(StartHub, EndHub) %>%
 #  filter(StartHub != EndHub) %>% # get rid of recursive edges
